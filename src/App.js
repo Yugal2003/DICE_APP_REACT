@@ -1,23 +1,28 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import StarGame from './components/StarGame';
+import GamePlay from './components/GamePlay';
+import Circles from './components/Circles';
 
 function App() {
+  const [isGameStart, setIsGameStart] = useState(false);
+  const [theme, setTheme] = useState(false); 
+
+  const toggleBtn = () => {
+    setIsGameStart((prev) => !prev);
+  };
+
+  const changeTheme = () => {
+    setTheme((prev) => !prev); 
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ backgroundColor: theme ? "white" : "black", color: theme ? "black" : "white" }}>
+      { !isGameStart 
+        ? <StarGame toggleBtn={toggleBtn} changeTheme={changeTheme} theme={theme} /> 
+        : <GamePlay toggleBtn={toggleBtn} changeTheme={changeTheme} theme={theme} />
+      }
+      <Circles />
     </div>
   );
 }
